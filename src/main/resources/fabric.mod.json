@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "radiation-apocalypse",
+  "version": "${version}",
+  "name": "radiation-apocalypse",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/radiation-apocalypse/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.voxelden.radiationApocalypse.client.RadiationApocalypseClient"
+    ],
+    "main": [
+      "net.voxelden.radiationApocalypse.RadiationApocalypse"
+    ]
+  },
+  "mixins": [
+    "radiation-apocalypse.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
