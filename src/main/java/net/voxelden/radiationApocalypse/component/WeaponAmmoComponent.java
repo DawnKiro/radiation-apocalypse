@@ -9,7 +9,7 @@ import net.minecraft.network.codec.PacketCodecs;
 
 import java.util.List;
 
-public record WeaponAmmoComponent(List<ItemStack> ammo, int ammoPerShot) {
-    public static final Codec<WeaponAmmoComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.list(ItemStack.OPTIONAL_CODEC).fieldOf("ammo").forGetter(WeaponAmmoComponent::ammo), Codec.INT.fieldOf("ammo_per_shot").forGetter(WeaponAmmoComponent::ammoPerShot)).apply(instance, WeaponAmmoComponent::new));
-    public static final PacketCodec<RegistryByteBuf, WeaponAmmoComponent> PACKET_CODEC = PacketCodec.tuple(ItemStack.OPTIONAL_LIST_PACKET_CODEC, WeaponAmmoComponent::ammo, PacketCodecs.INTEGER, WeaponAmmoComponent::ammoPerShot, WeaponAmmoComponent::new);
+public record WeaponAmmoComponent(List<ItemStack> ammo, int ammoPerShot, boolean automatic) {
+    public static final Codec<WeaponAmmoComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.list(ItemStack.OPTIONAL_CODEC).fieldOf("ammo").forGetter(WeaponAmmoComponent::ammo), Codec.INT.fieldOf("ammo_per_shot").forGetter(WeaponAmmoComponent::ammoPerShot), Codec.BOOL.fieldOf("automatic").forGetter(WeaponAmmoComponent::automatic)).apply(instance, WeaponAmmoComponent::new));
+    public static final PacketCodec<RegistryByteBuf, WeaponAmmoComponent> PACKET_CODEC = PacketCodec.tuple(ItemStack.OPTIONAL_LIST_PACKET_CODEC, WeaponAmmoComponent::ammo, PacketCodecs.INTEGER, WeaponAmmoComponent::ammoPerShot, PacketCodecs.BOOL, WeaponAmmoComponent::automatic, WeaponAmmoComponent::new);
 }

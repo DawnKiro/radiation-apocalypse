@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "radiation-apocalypse",
   "description": "",
-  "authors": [],
+  "authors": [
+    "DawnKiro"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/radiation-apocalypse/icon.png",
@@ -21,8 +23,14 @@
     "radiation-apocalypse.mixins.json"
   ],
   "depends": {
+    "keybind_fix": "*",
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_1657": ["software/bernie/geckolib/animatable/GeoEntity"]
+    }
   }
 }

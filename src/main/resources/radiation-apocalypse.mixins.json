@@ -4,8 +4,16 @@
   "package": "net.voxelden.radiationApocalypse.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "client": [
+    "CameraMixin",
+    "CompassAnglePredicateProviderMixin",
+    "EntityRenderersMixin",
+    "GameRendererMixin",
+    "HeldItemRendererMixin",
+    "MinecraftClientMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
