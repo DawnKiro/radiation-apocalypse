@@ -30,7 +30,10 @@
   },
   "custom": {
     "loom:injected_interfaces": {
-      "net/minecraft/class_1657": ["software/bernie/geckolib/animatable/GeoEntity"]
+      "net/minecraft/class_1657": [
+        "software/bernie/geckolib/animatable/GeoEntity",
+        "net/voxelden/radiationApocalypse/animation/AnimationEventHolder"
+      ]
     }
   }
 }

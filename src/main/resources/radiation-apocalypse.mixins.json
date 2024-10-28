@@ -4,6 +4,7 @@
   "package": "net.voxelden.radiationApocalypse.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "LivingEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [
