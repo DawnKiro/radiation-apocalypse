@@ -1,5 +1,6 @@
-package net.voxelden.radiationApocalypse.client.render.player;
+package net.voxelden.radiationApocalypse.client.render.model.player;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumer;

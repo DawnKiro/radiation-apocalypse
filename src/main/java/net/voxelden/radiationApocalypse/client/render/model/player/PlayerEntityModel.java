@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.render.player;
+package net.voxelden.radiationApocalypse.client.render.model.player;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.util.SkinTextures;

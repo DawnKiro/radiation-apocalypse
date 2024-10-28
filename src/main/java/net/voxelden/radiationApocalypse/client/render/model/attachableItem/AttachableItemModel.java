@@ -1,6 +1,6 @@
-package net.voxelden.radiationApocalypse.client.render.attachableItem;
+package net.voxelden.radiationApocalypse.client.render.model.attachableItem;
 
-import net.voxelden.radiationApocalypse.client.render.SimplePathNamedModel;
+import net.voxelden.radiationApocalypse.client.render.model.SimplePathNamedModel;
 import net.voxelden.radiationApocalypse.item.AttachableItem;
 
 public class AttachableItemModel extends SimplePathNamedModel<AttachableItem> {

@@ -3,7 +3,7 @@ package net.voxelden.radiationApocalypse.mixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.voxelden.radiationApocalypse.animation.AnimationEvent;
 import net.voxelden.radiationApocalypse.animation.AnimationEventHolder;
-import net.voxelden.radiationApocalypse.client.render.player.PlayerEntityAnimator;
+import net.voxelden.radiationApocalypse.client.render.model.player.PlayerEntityAnimator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import software.bernie.geckolib.animatable.GeoEntity;

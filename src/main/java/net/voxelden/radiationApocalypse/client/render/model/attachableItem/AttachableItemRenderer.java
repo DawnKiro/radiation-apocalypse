@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.render.attachableItem;
+package net.voxelden.radiationApocalypse.client.render.model.attachableItem;
 
 import net.voxelden.radiationApocalypse.item.AttachableItem;
 import software.bernie.geckolib.model.GeoModel;

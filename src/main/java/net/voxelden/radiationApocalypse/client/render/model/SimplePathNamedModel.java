@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.render;
+package net.voxelden.radiationApocalypse.client.render.model;
 
 import net.minecraft.util.Identifier;
 import net.voxelden.radiationApocalypse.RadiationApocalypse;

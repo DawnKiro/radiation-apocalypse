@@ -3,7 +3,8 @@ package net.voxelden.radiationApocalypse.mixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
-import net.voxelden.radiationApocalypse.client.render.player.PlayerEntityRenderer;
+import net.voxelden.radiationApocalypse.client.RadiationApocalypseClient;
+import net.voxelden.radiationApocalypse.client.render.model.player.PlayerEntityRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,9 +17,13 @@ public class GameRendererMixin {
     @Shadow @Final
     MinecraftClient client;
 
-    @Inject(method = "render", at = @At("HEAD"))
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void renderWorld(RenderTickCounter tickCounter, boolean tick, CallbackInfo ci) {
         PlayerEntityRenderer.isGui = false;
+        if (RadiationApocalypseClient.useCustomRenderer) {
+            net.voxelden.radiationApocalypse.client.render.GameRenderer.render(tickCounter, tick);
+            ci.cancel();
+        }
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;clear(IZ)V", ordinal = 0))
