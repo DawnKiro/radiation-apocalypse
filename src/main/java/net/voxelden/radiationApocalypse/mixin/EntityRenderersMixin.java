@@ -7,7 +7,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.EntityRenderers;
 import net.minecraft.client.util.SkinTextures;
 import net.minecraft.entity.player.PlayerEntity;
-import net.voxelden.radiationApocalypse.client.render.PlayerEntityRenderer;
+import net.voxelden.radiationApocalypse.client.render.player.PlayerEntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

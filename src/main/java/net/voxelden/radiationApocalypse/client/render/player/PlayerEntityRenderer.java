@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.render;
+package net.voxelden.radiationApocalypse.client.render.player;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

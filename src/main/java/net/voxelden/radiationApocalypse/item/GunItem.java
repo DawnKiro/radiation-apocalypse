@@ -3,6 +3,7 @@ package net.voxelden.radiationApocalypse.item;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
@@ -19,22 +20,39 @@ import net.voxelden.radiationApocalypse.component.WeaponAttachmentsComponent;
 import java.util.List;
 import java.util.Map;
 
-public class GunItem extends KeyConsumingItem {
+public class GunItem extends AttachableItem implements KeyConsumingItem {
     public GunItem(Settings settings) {
         super(addData(settings));
+    }
+
+    @Override
+    public String getModel() {
+        WeaponAttachmentsComponent attachmentsComponent = getComponents().get(Components.WEAPON_ATTACHMENTS);
+        return attachmentsComponent == null ? "null" : attachmentsComponent.model();
+    }
+
+    @Override
+    protected void addTriggerableAnimations() {
+        addTriggerableAnimation("fire");
+        addTriggerableAnimation("reload");
     }
 
     @Override
     public boolean consumeKeys(ClientPlayerEntity user, ItemStack stack) {
         if (InputHandler.consumeKey(Keybinds.GUN_FIRE)) {
             user.sendMessage(Text.literal("fire gun"), false);
+            fire(user, stack);
         }
         return true;
     }
 
+    public void fire(LivingEntity entity, ItemStack stack) {
+        triggerAnimation(entity, stack, "fire");
+    }
+
     private static Settings addData(Settings settings) {
         settings.component(Components.WEAPON_AMMO, new WeaponAmmoComponent(List.of(), 1, false));
-        settings.component(Components.WEAPON_ATTACHMENTS, new WeaponAttachmentsComponent(Map.of()));
+        settings.component(Components.WEAPON_ATTACHMENTS, new WeaponAttachmentsComponent("gun", Map.of()));
 
         AttributeModifiersComponent.Builder attributes = AttributeModifiersComponent.builder();
 

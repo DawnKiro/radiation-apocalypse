@@ -1,6 +1,7 @@
 package net.voxelden.radiationApocalypse.component;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipAppender;
@@ -15,13 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public record WeaponAttachmentsComponent(Map<String, List<ItemStack>> properties) implements TooltipAppender {
-    public static final Codec<WeaponAttachmentsComponent> CODEC = Codec.unboundedMap(Codec.STRING, Codec.list(ItemStack.OPTIONAL_CODEC)).xmap(WeaponAttachmentsComponent::new, WeaponAttachmentsComponent::properties);
-    public static final PacketCodec<RegistryByteBuf, WeaponAttachmentsComponent> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.map(HashMap::new, PacketCodecs.STRING, ItemStack.OPTIONAL_LIST_PACKET_CODEC),
-            WeaponAttachmentsComponent::properties,
-            WeaponAttachmentsComponent::new
-    );
+public record WeaponAttachmentsComponent(String model, Map<String, List<ItemStack>> attachments) implements TooltipAppender {
+    public static final Codec<WeaponAttachmentsComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.STRING.fieldOf("model").forGetter(WeaponAttachmentsComponent::model), Codec.unboundedMap(Codec.STRING, Codec.list(ItemStack.OPTIONAL_CODEC)).fieldOf("attachments").forGetter(WeaponAttachmentsComponent::attachments)).apply(instance, WeaponAttachmentsComponent::new));
+    public static final PacketCodec<RegistryByteBuf, WeaponAttachmentsComponent> PACKET_CODEC = PacketCodec.tuple(PacketCodecs.STRING, WeaponAttachmentsComponent::model, PacketCodecs.map(HashMap::new, PacketCodecs.STRING, ItemStack.OPTIONAL_LIST_PACKET_CODEC), WeaponAttachmentsComponent::attachments, WeaponAttachmentsComponent::new);
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {

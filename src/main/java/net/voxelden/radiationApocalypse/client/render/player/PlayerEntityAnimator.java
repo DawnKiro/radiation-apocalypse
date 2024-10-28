@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.render;
+package net.voxelden.radiationApocalypse.client.render.player;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +29,7 @@ public class PlayerEntityAnimator {
         controllers.add(new AnimationController<>(player, "generic", 10, event -> player.getGenericEvent() == null ? PlayState.CONTINUE : PlayerEntityAnimator.genericAnimationController(event)));
     }
 
-    private static PlayState movementAnimationController(final AnimationState<PlayerEntity> event) {
+    private static PlayState movementAnimationController(AnimationState<PlayerEntity> event) {
         PlayerEntity player = event.getAnimatable();
         Hand hand = player.getMainHandStack().isEmpty() ? player.getOffHandStack().isEmpty() ? Hand.MAIN_HAND : Hand.OFF_HAND : Hand.MAIN_HAND;
 
