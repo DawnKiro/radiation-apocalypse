@@ -16,23 +16,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Camera.class)
 public abstract class CameraMixin {
     @Shadow
-    protected abstract void setRotation(float yaw, float pitch);
-
-    @Shadow
     protected abstract void setPos(Vec3d pos);
 
     @Shadow
-    private float yaw;
+    protected abstract void setRotation(float yaw, float pitch);
 
-    @Shadow
-    private float pitch;
-
-    @Inject(method = "update", at = @At("TAIL"))
+    @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V", ordinal = 0), cancellable = true)
     private void updateCamera(BlockView area, Entity entity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
-        if (entity instanceof AbstractClientPlayerEntity) {
-            if (PlayerEntityRenderer.cameraPosition != null)
-                setPos(PlayerEntityRenderer.cameraPosition.add(MathHelper.lerp(tickDelta, entity.prevX, entity.getX()), MathHelper.lerp(tickDelta, entity.prevY, entity.getY()), MathHelper.lerp(tickDelta, entity.prevZ, entity.getZ())));
-            setRotation(yaw + PlayerEntityRenderer.cameraRotation.y, pitch + PlayerEntityRenderer.cameraRotation.x);
+        if (entity instanceof AbstractClientPlayerEntity player && PlayerEntityRenderer.cameraPosition != null) {
+            setPos(PlayerEntityRenderer.cameraPosition.add(MathHelper.lerp(tickDelta, player.prevX, player.getX()), MathHelper.lerp(tickDelta, player.prevY, player.getY()), MathHelper.lerp(tickDelta, player.prevZ, player.getZ())));
+            setRotation(player.getYaw(tickDelta) + PlayerEntityRenderer.cameraRotation.y, player.getPitch(tickDelta) + PlayerEntityRenderer.cameraRotation.x);
+            ci.cancel();
         }
     }
 }

@@ -9,6 +9,7 @@ import net.voxelden.radiationApocalypse.RadiationApocalypse;
 import java.util.function.UnaryOperator;
 
 public class Components {
+    public static final ComponentType<AnimationTypeComponent> ANIMATION_TYPE = register("animation_type", builder -> builder.codec(AnimationTypeComponent.CODEC).packetCodec(AnimationTypeComponent.PACKET_CODEC).cache());
     public static final ComponentType<WeaponAmmoComponent> WEAPON_AMMO = register("weapon_ammo", builder -> builder.codec(WeaponAmmoComponent.CODEC).packetCodec(WeaponAmmoComponent.PACKET_CODEC).cache());
     public static final ComponentType<AttributeModifiersComponent> WEAPON_AMMO_MODIFIERS = register("weapon_ammo_modifiers", builder -> builder.codec(AttributeModifiersComponent.CODEC).packetCodec(AttributeModifiersComponent.PACKET_CODEC).cache());
     public static final ComponentType<WeaponAttachmentsComponent> WEAPON_ATTACHMENTS = register("weapon_attachments", builder -> builder.codec(WeaponAttachmentsComponent.CODEC).packetCodec(WeaponAttachmentsComponent.PACKET_CODEC).cache());

@@ -112,8 +112,13 @@ gradle-app.setting
 **/build/
 
 # Common working directory
-run/
-runs/
+run/*
+!run/config/
+!run/config/*
+!run/mods/
+!run/mods/*
+!run/resourcepacks/
+!run/resourcepacks/*
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
