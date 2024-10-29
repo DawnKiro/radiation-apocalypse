@@ -38,4 +38,11 @@ public abstract class WorldRendererMixin {
             ci.cancel();
         }
     }
+
+    @Inject(method = "onResized", at = @At("TAIL"))
+    private void resizeProcessorLayers(int width, int height, CallbackInfo ci) {
+        if (net.voxelden.radiationApocalypse.client.render.WorldRenderer.useCustomRenderer) {
+            net.voxelden.radiationApocalypse.client.render.WorldRenderer.resizeProcessorLayers(width, height);
+        }
+    }
 }

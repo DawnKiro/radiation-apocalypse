@@ -20,7 +20,7 @@
             ]
         },
         {
-            "name": "blit",
+            "name": "depth_blit",
             "intarget": "final",
             "outtarget": "minecraft:main"
         }

@@ -1,10 +1,15 @@
 package net.voxelden.radiationApocalypse.client.render;
 
+import com.mojang.blaze3d.platform.GlConst;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.voxelden.radiationApocalypse.RadiationApocalypse;
 import net.voxelden.radiationApocalypse.mixin.PostEffectProcessorAccessor;
@@ -19,7 +24,9 @@ public class WorldRenderer {
 
     private static final Identifier DEFERRED_SHADER = Identifier.ofVanilla("shaders/post/deferred.json");
     private static PostEffectProcessor deferredProcessor;
-    private static Framebuffer normalFrameBuffer;
+    public static Framebuffer normalFrameBuffer;
+    public static int normalAttachment = -1;
+    public static final int GL_COLOR_ATTACHMENT1 = GlConst.GL_COLOR_ATTACHMENT0 + 1;
 
     public static void render(RenderTickCounter tickCounter, Camera camera, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
         if (deferredProcessor != null) {
@@ -46,10 +53,24 @@ public class WorldRenderer {
             deferredProcessor.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
 
             normalFrameBuffer = deferredProcessor.getSecondaryTarget("normal");
+            normalAttachment = normalFrameBuffer.getColorAttachment();
+
+            GlStateManager._bindTexture(WorldRenderer.normalAttachment);
+            GlStateManager._texParameter(GlConst.GL_TEXTURE_2D, GlConst.GL_TEXTURE_MIN_FILTER, GlConst.GL_NEAREST);
+            GlStateManager._texParameter(GlConst.GL_TEXTURE_2D, GlConst.GL_TEXTURE_MAG_FILTER, GlConst.GL_NEAREST);
+            GlStateManager._texParameter(GlConst.GL_TEXTURE_2D, GlConst.GL_TEXTURE_WRAP_S, GlConst.GL_CLAMP_TO_EDGE);
+            GlStateManager._texParameter(GlConst.GL_TEXTURE_2D, GlConst.GL_TEXTURE_WRAP_T, GlConst.GL_CLAMP_TO_EDGE);
+            GlStateManager._glFramebufferTexture2D(GlConst.GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GlConst.GL_TEXTURE_2D, WorldRenderer.normalAttachment, 0);
+
 
         } catch (Exception e) {
-            RadiationApocalypse.LOGGER.error("ERROR LOADING PROCESSOR LAYERS: ", e);
-            WorldRenderer.disable();
+            if (client.player == null) {
+                RadiationApocalypse.LOGGER.info("ERROR LOADING PROCESSOR LAYERS: ", e);
+            } else {
+                client.player.sendMessage(Text.literal("ERROR LOADING PROCESSOR LAYERS: ").append(Text.literal(e.getMessage()).setStyle(Style.EMPTY.withColor(Formatting.RED))));
+            }
+            resetProcessorLayers();
+            useCustomRenderer = false;
         }
     }
 
@@ -62,12 +83,14 @@ public class WorldRenderer {
         if (normalFrameBuffer != null) {
             normalFrameBuffer.delete();
             normalFrameBuffer = null;
+            normalAttachment = -1;
         }
     }
 
-    public static void disable() {
-        resetProcessorLayers();
-
+    public static void resizeProcessorLayers(int width, int height) {
+        if (deferredProcessor != null) {
+            deferredProcessor.setupDimensions(width, height);
+        }
     }
 
     public static void toggle(MinecraftClient client) {
@@ -75,7 +98,7 @@ public class WorldRenderer {
         if (useCustomRenderer) {
             loadProcessorLayers(client);
         } else {
-            disable();
+            resetProcessorLayers();
         }
     }
 }

@@ -8,6 +8,7 @@
     "PlayerEntityMixin"
   ],
   "client": [
+    "BakedQuadMixin",
     "CameraMixin",
     "CompassAnglePredicateProviderMixin",
     "EntityRenderersMixin",
@@ -15,6 +16,7 @@
     "HeldItemRendererMixin",
     "MinecraftClientMixin",
     "PostEffectProcessorAccessor",
+    "WindowFrameBufferMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

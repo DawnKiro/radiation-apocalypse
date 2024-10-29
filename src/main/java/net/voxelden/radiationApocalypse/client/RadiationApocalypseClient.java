@@ -16,5 +16,6 @@ public class RadiationApocalypseClient implements ClientModInitializer {
 
     private static void endTick(MinecraftClient client) {
         while (Keybinds.TOGGLE_CUSTOM_RENDERER.wasPressed()) WorldRenderer.toggle(client);
+        while (Keybinds.RELOAD_CUSTOM_RENDERER.wasPressed()) WorldRenderer.loadProcessorLayers(client);
     }
 }

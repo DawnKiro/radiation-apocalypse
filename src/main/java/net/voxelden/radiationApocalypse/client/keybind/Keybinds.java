@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class Keybinds {
     public static final KeyBinding TOGGLE_CUSTOM_RENDERER = register("toggle_custom_renderer", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Y);
+    public static final KeyBinding RELOAD_CUSTOM_RENDERER = register("reload_custom_renderer", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT);
     public static final KeyBinding GUN_FIRE = register("gun_fire", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_LEFT);
     public static final KeyBinding GUN_RELOAD = register("gun_reload", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R);
     public static final KeyBinding GUN_SCOPE = register("gun_scope", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_RIGHT);
