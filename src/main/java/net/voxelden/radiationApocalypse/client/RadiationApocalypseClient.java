@@ -4,10 +4,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.voxelden.radiationApocalypse.client.keybind.Keybinds;
+import net.voxelden.radiationApocalypse.client.render.WorldRenderer;
 
 public class RadiationApocalypseClient implements ClientModInitializer {
-    public static boolean useCustomRenderer = false;
-
     @Override
     public void onInitializeClient() {
         Keybinds.register();
@@ -16,6 +15,6 @@ public class RadiationApocalypseClient implements ClientModInitializer {
     }
 
     private static void endTick(MinecraftClient client) {
-        while (Keybinds.TOGGLE_CUSTOM_RENDERER.wasPressed()) useCustomRenderer = !useCustomRenderer;
+        while (Keybinds.TOGGLE_CUSTOM_RENDERER.wasPressed()) WorldRenderer.toggle(client);
     }
 }
