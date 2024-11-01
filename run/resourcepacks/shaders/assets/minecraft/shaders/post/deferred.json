@@ -1,6 +1,7 @@
 {
     "targets": [
         "normal",
+        "data",
         "final"
     ],
     "passes": [
@@ -16,6 +17,10 @@
                 {
                     "name": "NormalSampler",
                     "id": "normal"
+                },
+                {
+                    "name": "DataSampler",
+                    "id": "data"
                 }
             ]
         },

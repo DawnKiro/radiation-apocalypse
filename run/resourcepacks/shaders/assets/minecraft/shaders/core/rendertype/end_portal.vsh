@@ -1,4 +1,4 @@
-#version 150
+#version 430
 
 #moj_import <projection.glsl>
 

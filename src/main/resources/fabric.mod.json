@@ -23,11 +23,11 @@
     "radiation-apocalypse.mixins.json"
   ],
   "depends": {
-    "keybind_fix": "*",
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
   },
+  "accessWidener" : "radiation-apocalypse.accesswidener",
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/class_1657": [

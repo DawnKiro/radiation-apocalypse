@@ -11,8 +11,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.voxelden.radiationApocalypse.Attributes;
 import net.voxelden.radiationApocalypse.RadiationApocalypse;
-import net.voxelden.radiationApocalypse.client.InputHandler;
-import net.voxelden.radiationApocalypse.client.keybind.Keybinds;
+import net.voxelden.radiationApocalypse.client.input.InputHandler;
 import net.voxelden.radiationApocalypse.component.Components;
 import net.voxelden.radiationApocalypse.component.WeaponAmmoComponent;
 import net.voxelden.radiationApocalypse.component.WeaponAttachmentsComponent;
@@ -39,10 +38,10 @@ public class GunItem extends AttachableItem implements KeyConsumingItem {
 
     @Override
     public boolean consumeKeys(ClientPlayerEntity user, ItemStack stack) {
-        if (InputHandler.consumeKey(Keybinds.GUN_FIRE)) {
+        //if (InputHandler.consumeKey(Keybinds.GUN_FIRE)) {
             user.sendMessage(Text.literal("fire gun"), false);
             fire(user, stack);
-        }
+        //}
         return true;
     }
 

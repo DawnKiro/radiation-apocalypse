@@ -45,4 +45,9 @@ public abstract class WorldRendererMixin {
             net.voxelden.radiationApocalypse.client.render.WorldRenderer.resizeProcessorLayers(width, height);
         }
     }
+
+    @Inject(method = "close", at = @At("HEAD"))
+    private void close(CallbackInfo ci) {
+        net.voxelden.radiationApocalypse.client.render.WorldRenderer.resetProcessorLayers();
+    }
 }

@@ -14,9 +14,12 @@
     "EntityRenderersMixin",
     "GameRendererMixin",
     "HeldItemRendererMixin",
+    "KeyboardMixin",
     "MinecraftClientMixin",
     "PostEffectProcessorAccessor",
-    "WindowFrameBufferMixin",
+    "RenderPhaseTextureMixin",
+    "SpriteAtlasManagerMixin",
+    "SpriteAtlasManagerMixin$AtlasAccessor",
     "WorldRendererMixin"
   ],
   "injectors": {

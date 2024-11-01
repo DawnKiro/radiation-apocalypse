@@ -1,4 +1,4 @@
-#version 150
+#version 430
 
 #moj_import <matrix.glsl>
 
@@ -51,7 +51,9 @@ mat4 end_portal_layer(float layer) {
     return mat4(scale * rotate) * translate * SCALE_TRANSLATE;
 }
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
+layout(location = 1) out vec4 fragNormal;
+layout(location = 2) out vec4 fragData;
 
 void main() {
     vec3 color = textureProj(Sampler0, texProj0).rgb * COLORS[0];
@@ -59,4 +61,6 @@ void main() {
         color += textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i];
     }
     fragColor = vec4(color, 1.0);
+    fragNormal = vec4(vec3(0.5), 1.0);
+    fragData = vec4(vec3(0.0), 1.0);
 }

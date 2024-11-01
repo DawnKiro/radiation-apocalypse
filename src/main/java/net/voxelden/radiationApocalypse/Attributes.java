@@ -7,7 +7,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 
 public class Attributes {
-    // GUN ATTRIBUTES: projectile_speed, projectile_range, projectile_damage, projectile_damage_falloff, projectile_gravity, fire_rate, reload_duration, projectile_inaccuracy, projectile_bloom, recoil
     public static final RegistryEntry<EntityAttribute> PROJECTILE_BLOOM = registerClampedEntityAttribute("projectile_bloom", 0.0, 0.0, 64.0, false);
     public static final RegistryEntry<EntityAttribute> PROJECTILE_DAMAGE = registerClampedEntityAttribute("projectile_damage", 1.0, 0.0, 4096.0, false);
     public static final RegistryEntry<EntityAttribute> PROJECTILE_DAMAGE_FALLOFF = registerClampedEntityAttribute("projectile_damage_falloff", 0.0, 0.0, 4096.0, false);
