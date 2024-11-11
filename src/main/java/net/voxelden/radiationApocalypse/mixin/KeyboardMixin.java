@@ -16,7 +16,6 @@ public class KeyboardMixin {
 
     @Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
     private void redirectKeys(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
-        if (window == client.getWindow().getHandle()) InputHandler.keyboardInput(client, key, action, modifiers);
-        ci.cancel();
+        if (window == client.getWindow().getHandle() && InputHandler.keyboardInput(client, key, action, modifiers)) ci.cancel();
     }
 }
