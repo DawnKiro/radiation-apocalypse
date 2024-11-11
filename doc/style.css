@@ -28,26 +28,33 @@ header span:hover {
 }
 
 content {
-	display: block;
+  display: block;
   background-color: #161616;
   margin: 4px;
   padding: 0.25em 1em 4em 1em;
   height: 100%;
 }
 
+content * {
+  margin: 16px;
+}
+
 content p {
+  margin: 0;
 	padding: 12px;
 	font-size: 1em;
 	color: #d0d0d0;
 }
 
 content h1 {
+  margin: 0;
   padding-top: 16px;
   font-size: 2em;
   color: #f0f0f0;
 }
 
 content h2 {
+  margin: 0;
   margin: 12px;
   font-size: 1.5em;
   color: #a0a0d0;
@@ -59,12 +66,14 @@ content h2:hover {
 }
 
 content img {
+  margin: 0;
 	margin: 8px 32px;
 	background-color: #646464;
 	border-radius: 8px;
 }
 
 content .error {
+  margin: 0;
   font-size: 4em;
   color: #cc3333;
   text-align: center;

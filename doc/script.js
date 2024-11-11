@@ -9,7 +9,7 @@ function setPage(page, replace = false) {
   url.searchParams.set("page", page);
   if (replace) history.replaceState(null, "", url);
   else history.pushState(null, "", url);
-  fetch("pages/" + page + ".txt")
+  fetch("pages/" + page + ".txt", { cache: "no-cache" })
     .then((response) => {
       if (response.ok) return response.text();
       else throw new Error(response.status);
@@ -22,10 +22,14 @@ function setPage(page, replace = false) {
       if (page == "index") {
         document.body.children.item(0).innerHTML = "<span>Index</span>";
       } else {
-        document.body.children.item(0).innerHTML =
-          "<span onclick='setPage(&quot;index&quot;)'>Index</span> &gt; <span>" +
-          title +
-          "</span>";
+        let path = "<span onclick='setPage(&quot;index&quot;)'>Index</span>";
+        let titleSegments = title.split("/");
+        for (let i in titleSegments) {
+          let segment = titleSegments[i].trim();
+          if (i == titleSegments.length - 1) path += " &gt; <span>" + segment + "</span>";
+          else path += " &gt; <span onclick='setPage(&quot;" + segment.toLowerCase() + "&quot;)'>" + segment + "</span>";
+        }
+        document.body.children.item(0).innerHTML = path;
       }
       document.body.children.item(1).innerHTML = content;
     })
