@@ -1,8 +1,0 @@
-Index
-
---h
-Pages:
---l
-template;Template
---l
-mob;Mob

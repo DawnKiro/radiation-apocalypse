@@ -1,6 +1,0 @@
-Mob / Template Page
-
---h
-Creature
-
---i test
