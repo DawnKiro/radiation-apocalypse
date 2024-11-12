@@ -3,7 +3,7 @@ package net.voxelden.radiationApocalypse.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
-import net.voxelden.radiationApocalypse.client.input.InputHandler;
+import net.voxelden.radiationApocalypse.input.InputHandler;
 
 public class RadiationApocalypseClient implements ClientModInitializer {
     @Override

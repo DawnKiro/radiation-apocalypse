@@ -2,7 +2,7 @@ package net.voxelden.radiationApocalypse.mixin;
 
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
-import net.voxelden.radiationApocalypse.client.input.InputHandler;
+import net.voxelden.radiationApocalypse.input.InputHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.input;
+package net.voxelden.radiationApocalypse.input;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
@@ -10,6 +10,7 @@ import java.util.Map;
 public record Keyset(Map<Identifier, Keybind> keybinds) {
     public static Keyset active = null;
 
+    public static final Identifier NONE = RadiationApocalypse.id("none");
     public static final Identifier GUN = RadiationApocalypse.id("gun");
 
     public static void activate(Identifier keyset) {

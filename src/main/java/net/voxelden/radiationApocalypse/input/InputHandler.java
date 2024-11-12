@@ -1,4 +1,4 @@
-package net.voxelden.radiationApocalypse.client.input;
+package net.voxelden.radiationApocalypse.input;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
