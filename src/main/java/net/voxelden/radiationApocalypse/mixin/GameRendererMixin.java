@@ -1,14 +1,11 @@
 package net.voxelden.radiationApocalypse.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.ColorHelper;
 import net.voxelden.radiationApocalypse.client.render.WorldRenderer;
 import net.voxelden.radiationApocalypse.client.render.model.player.PlayerEntityRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -55,12 +52,8 @@ public abstract class GameRendererMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;draw()V"))
     private void renderDebugInfo(RenderTickCounter tickCounter, boolean tick, CallbackInfo ci, @Local DrawContext drawContext) {
-        if (WorldRenderer.useCustomRenderer) {
-            Text debugText = Text.literal("CUSTOM RENDERER IS ACTIVE");
-            RenderSystem.enableBlend();
-            drawContext.fill(2, 2, 5 + client.textRenderer.getWidth(debugText), 14, ColorHelper.Argb.withAlpha(127, 0));
-            RenderSystem.disableBlend();
-            drawContext.drawText(client.textRenderer, debugText, 4, 4, 13649145, false);
+        if (WorldRenderer.useCustomRenderer && !client.getDebugHud().shouldShowDebugHud()) {
+            net.voxelden.radiationApocalypse.client.render.GameRenderer.renderDebugText(client.textRenderer, drawContext);
         }
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.voxelden.radiationApocalypse.RadiationApocalypse;
 import net.voxelden.radiationApocalypse.client.render.light.Light;
 import net.voxelden.radiationApocalypse.client.render.light.LightManager;
@@ -49,7 +50,6 @@ public class WorldRenderer {
             });
 
             LightManager.update();
-
             deferredProcessor.render(tickCounter.getLastFrameDuration());
         }
     }
@@ -86,7 +86,8 @@ public class WorldRenderer {
             GlStateManager._glBindFramebuffer(GlConst.GL_FRAMEBUFFER, 0);
 
             LightManager.setup();
-            LightManager.add(new Light(16f, -1, Light.Type.POINT, new Vector3f()), client.player);
+            LightManager.entityLights.get(client.player).add(new Light(4f, 255, 0, 0, Light.Type.POINT));
+            LightManager.blockLights.get(BlockPos.ORIGIN).add(new Light(16f, 255, 127, 255, Light.Type.POINT));
         } catch (Exception e) {
             if (client.player == null) {
                 RadiationApocalypse.LOGGER.info("ERROR LOADING PROCESSOR LAYERS: ", e);
@@ -116,8 +117,8 @@ public class WorldRenderer {
             dataAttachment = -1;
         }
 
-        LightManager.destroy();
         LightManager.clear();
+        LightManager.destroy();
     }
 
     public static void resizeProcessorLayers(int width, int height) {

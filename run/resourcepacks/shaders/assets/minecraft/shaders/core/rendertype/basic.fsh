@@ -21,6 +21,4 @@ void main() {
     fragColor = color;
     fragNormal = vec4(normal * 0.5 + 0.5, 1.0);
     fragData = vec4(texture(Sampler1, texCoord0).rgb, 1.0);
-
-    fragColor += vec4(texture(Sampler1, texCoord0).rgb, 0.0);
 }

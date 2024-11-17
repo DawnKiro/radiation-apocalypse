@@ -17,9 +17,7 @@ struct Light {
   ivec2 rotation;
 };
 
-layout(std430, binding = 0) buffer LightsBuffer {
-    int lightsLength;
-    ivec3 lightsLengthadwasdsdef;
+layout(std430, binding = 0) readonly buffer LightsBuffer {
     Light lights[];
 };
 
@@ -27,16 +25,30 @@ in vec2 texCoord;
 
 out vec4 fragColor;
 
-void main() {
-    vec3 origin = vec3(1151.0, 64.0, -636.0);
+vec4 unpackARGB(int color) {
+    return vec4((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
+}
 
+void main() {
     vec4 color = texture(DiffuseSampler, texCoord);
     vec4 posData = InvWorldMat * vec4(texCoord * 2.0 - 1.0, texture(DiffuseDepthSampler, texCoord).r * 2.0 - 1.0, 1.0);
-    vec3 worldPos = (posData.xyz / posData.w) + CameraPos - origin;
+    vec3 worldPos = (posData.xyz / posData.w) + CameraPos;
     vec3 normal = texture(NormalSampler, texCoord).xyz * 2.0 - 1.0;
+    vec3 totalLight = vec3(0.0);
 
-    float normalInfluence = dot(normalize(worldPos), normal) * 0.5 + 1.0;
-    float lightInfluence = pow(max(0.0, 1.0 - length(worldPos) / 127.0), 1.4) - 0.4 * normalInfluence;
-    fragColor = vec4(max(vec3(0.0), color.rgb * lightInfluence) + texture(DataSampler, texCoord).xyz, 1.0);
-    fragColor.r += lights[0].pos.x;
+    for (int i = 0; i < lights.length(); i++) {
+        Light light = lights[i];
+        float dist = length(worldPos - light.pos);
+        if (dist < light.radius) {
+            vec3 lightColor = unpackARGB(light.color).rgb;
+            if (distance(lightColor, totalLight) > 0.05) {
+                float normalInfluence = dot(normalize(worldPos - light.pos), normal) * 0.5 + 1.0;
+                float lightInfluence = clamp((1.0 - dist / light.radius) * 1.4 - (normalInfluence * 0.8 - 0.2), 0.0, 1.0);
+                totalLight = max(totalLight, lightColor * lightInfluence);
+            }
+        }
+    }
+    totalLight /= 255.0;
+
+    fragColor = vec4(color.rgb * totalLight + texture(DataSampler, texCoord).xyz, 1.0);
 }

@@ -4,9 +4,11 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.voxelden.radiationApocalypse.RadiationApocalypse;
 import net.voxelden.radiationApocalypse.client.render.WorldRenderer;
+import net.voxelden.radiationApocalypse.item.KeysetActivator;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -39,6 +41,13 @@ public class InputHandler {
         BASIC_KEYBINDS.forEach(basicKeybind -> {
             while (basicKeybind.keyBinding().wasPressed()) basicKeybind.action().accept(client);
         });
+
+        Keyset.activate(Keyset.NONE);
+        if (client.player instanceof PlayerEntity player) {
+            if (player.getMainHandStack().getItem() instanceof KeysetActivator activator) {
+                Keyset.activate(activator.keyset());
+            }
+        }
     }
 
     public static boolean keyboardInput(MinecraftClient client, int key, int action, int modifiers) {
