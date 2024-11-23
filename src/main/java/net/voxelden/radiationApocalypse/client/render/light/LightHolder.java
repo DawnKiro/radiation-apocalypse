@@ -68,6 +68,10 @@ public abstract class LightHolder<T> {
         return lights.get(t);
     }
 
+    public Map<T, List<Light>> get() {
+        return lights;
+    }
+
     public void remove(T t) {
         markDirty();
         lights.remove(t);
@@ -84,6 +88,14 @@ public abstract class LightHolder<T> {
     abstract Vector3f pos(T of);
 
     abstract Vector2f rotation(T of);
+
+    public boolean contains(T of) {
+        return lights.containsKey(of);
+    }
+
+    public boolean contains(Light light) {
+        return lights.containsValue(light);
+    }
 
     public static class Block extends LightHolder<BlockPos> {
         @Override

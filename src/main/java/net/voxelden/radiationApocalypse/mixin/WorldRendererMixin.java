@@ -2,6 +2,8 @@ package net.voxelden.radiationApocalypse.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
+import net.minecraft.client.world.ClientWorld;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +22,8 @@ public abstract class WorldRendererMixin {
     @Final
     private MinecraftClient client;
 
+    @Shadow private @Nullable ClientWorld world;
+
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;isThirdPerson()Z"))
     private boolean renderSelf(Camera camera) {
         return true;
@@ -27,7 +31,7 @@ public abstract class WorldRendererMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/debug/DebugRenderer;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;DDD)V"))
     private void deferredPass(RenderTickCounter tickCounter, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2, CallbackInfo ci) {
-        net.voxelden.radiationApocalypse.client.render.WorldRenderer.render(tickCounter, camera, matrix4f, matrix4f2);
+        if (world != null) net.voxelden.radiationApocalypse.client.render.WorldRenderer.render(client, tickCounter, camera, matrix4f, matrix4f2);
     }
 
     @Inject(method = "loadTransparencyPostProcessor", at = @At("HEAD"), cancellable = true)

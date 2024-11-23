@@ -35,7 +35,7 @@ public class WorldRenderer {
     public static final int GL_COLOR_ATTACHMENT1 = GlConst.GL_COLOR_ATTACHMENT0 + 1;
     public static final int GL_COLOR_ATTACHMENT2 = GL_COLOR_ATTACHMENT1 + 1;
 
-    public static void render(RenderTickCounter tickCounter, Camera camera, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
+    public static void render(MinecraftClient client, RenderTickCounter tickCounter, Camera camera, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
         if (deferredProcessor != null) {
             Matrix4f inverseWorldMat = new Matrix4f(projectionMatrix);
             projectionMatrix.mul(modelViewMatrix, inverseWorldMat).invert();
@@ -49,7 +49,7 @@ public class WorldRenderer {
                 pass.getProgram().getUniformByNameOrDummy("FogNoiseInfluence").set(fogNoiseInfluence);
             });
 
-            LightManager.update();
+            LightManager.update(client, camera);
             deferredProcessor.render(tickCounter.getLastFrameDuration());
         }
     }

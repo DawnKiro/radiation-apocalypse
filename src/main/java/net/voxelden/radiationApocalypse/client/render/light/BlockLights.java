@@ -3,6 +3,8 @@ package net.voxelden.radiationApocalypse.client.render.light;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.predicate.BlockPredicate;
+import net.minecraft.predicate.StatePredicate;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Vector3f;
 
@@ -46,6 +48,8 @@ public class BlockLights {
         lights.put(LightBlockPredicate.of(predicate().blocks(Blocks.GLOWSTONE).build()), () -> List.of(new Light(32f, 255, 222, 200, Light.Type.POINT, new Vector3f(0f))));
         lights.put(LightBlockPredicate.of(predicate().blocks(Blocks.LAVA).build(), 32), () -> List.of(new Light(64f, 255, 128, 64, Light.Type.POINT, new Vector3f(0f))));
         lights.put(LightBlockPredicate.of(predicate().blocks(Blocks.SOUL_FIRE).build()), () -> List.of(new Light(24f, 16, 128, 128, Light.Type.POINT, new Vector3f(0f))));
+        lights.put(LightBlockPredicate.of(predicate().blocks(Blocks.CAVE_VINES).state(StatePredicate.Builder.create().exactMatch(Properties.BERRIES, true)).build()), () -> List.of(new Light(12f, 160, 128, 64, Light.Type.POINT, new Vector3f(0f))));
+        lights.put(LightBlockPredicate.of(predicate().blocks(Blocks.CAVE_VINES_PLANT).state(StatePredicate.Builder.create().exactMatch(Properties.BERRIES, true)).build()), () -> List.of(new Light(12f, 160, 128, 64, Light.Type.POINT, new Vector3f(0f))));
     }
 
     public record LightBlockPredicate(BlockPredicate predicate, int rarity) {
@@ -54,6 +58,7 @@ public class BlockLights {
         }
 
         public static LightBlockPredicate of(BlockPredicate predicate, int rarity) {
+            if (rarity < 1) throw new IllegalArgumentException("Rarity can not be less than 1!");
             return new LightBlockPredicate(predicate, rarity);
         }
     }
